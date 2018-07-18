@@ -34,8 +34,16 @@ namespace BookingBoss.WebApi.Controllers
             try
             {
                 var result = _service.GetAllProducts();
-                _logger.LogInformation($"Product List extracted succesfully from service.", null);
-                return new JsonResult(result.AsEnumerable());
+                if (result?.Count() > 0)
+                {
+                    _logger.LogInformation($"Product List extracted succesfully from service.", null);
+                    return new JsonResult(result.AsEnumerable());
+                }
+                else
+                {
+                    _logger.LogInformation($"No Product List Exists.", null);
+                    return NotFound("No Product List Exists.");
+                }
             }
             catch (Exception ex)
             {
@@ -50,12 +58,17 @@ namespace BookingBoss.WebApi.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                _service.SaveProducts(products.ToList());
-                _logger.LogInformation($"Products saves succesfully.", null);
-                return Ok();
+                var result = _service.SaveProducts(products.ToList());
+                if (result)
+                {
+                    _logger.LogInformation($"Products saves succesfully.", null);
+                    return Ok();
+                }
+                else
+                {
+                    _logger.LogInformation($"Error while saving Products.", null);
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
@@ -72,10 +85,10 @@ namespace BookingBoss.WebApi.Controllers
             {
                 var result = _service.GetProduct(ProductID);
 
-                if(result != null)
+                if (result != null)
                     return new JsonResult(result);
                 else
-                    return new JsonResult("No record exists !!!");
+                    return NotFound("No record exists !!!");                    
             }
             catch (Exception ex)
             {
