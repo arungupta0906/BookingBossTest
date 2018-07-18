@@ -12,7 +12,9 @@ Run this Web Api as other normal .NET Web API
 
 Web API consists of three operation:
   1. Saving the Product List with unique Id and time stamp.
+  
         http://localhost:61247/api/product/PutProducts
+        
           [{
               "id":"2da1a1ad-4d88-4794-b162-e22e5d2cc8dd",
               "timestamp": "2018-07-18T10:29:33.0842849Z",
@@ -30,7 +32,9 @@ Web API consists of three operation:
             }
             ]
   2. Get the list of all the products with unique id and time stamp.
+  
         http://localhost:61247/api/product/GetAllProducts
+        
           [
             {
                 "id": "2da1a1ad-4d88-4794-b162-e22e5d2cc8dd",
@@ -88,7 +92,9 @@ Web API consists of three operation:
             }
         ]
   3. Get the product by product id.
+  
       http://localhost:61247/api/product/GetProduct/1
+      
           {
                 "id": "2da1a1ad-4d88-4794-b162-e22e5d2cc8dd",
                 "timestamp": "2018-07-18T10:29:33.0842849Z",
